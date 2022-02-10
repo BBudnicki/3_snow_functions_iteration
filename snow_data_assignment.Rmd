@@ -358,16 +358,18 @@ ggplot(q6_yearly_monthly) +
 
 
 ```{r}
-q5_monthly <- q4_full %>%
+q6_monthly <- q4_full %>%
   group_by(month,site) %>%
   summarize(mean_temp_k = mean(air_temp_k,na.rm=T))
 
 
-ggplot(q5_monthly) + 
+ggplot(q6_monthly) + 
   geom_line(aes(x=month,y=mean_temp_k,color=site)) + 
   ggthemes::theme_few() + 
   ggthemes::scale_color_few() +
   ylab(label = "Air Temperture (Kelvin)") +
+    scale_x_continuous(name="Month",   breaks = c(1,2,3,4,5,6,7,8,9,10,11,12),
+    label = c("Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")) +
   ggtitle("Fig 6: Line Chart Air Temperture by Month", subtitle = "(All Years)")
 
 
@@ -385,7 +387,7 @@ q7_daily <- q4_full %>%
   group_by(year,month,day,site) %>%
   summarize(daily_precip = sum(precip..kg.m.2.s.1.), ) %>%
   group_by(month,day,site) %>%  
-  summarize(mean_precip = mean(daily_precip), date = paste0(month,day))
+  summarize(mean_precip = mean(daily_precip), date = make_date('1970', month, day))
 
 
 ggplot(q7_daily) + 
@@ -441,3 +443,9 @@ ggplot(q8_yearly_monthly) +
 
 
 ```
+
+
+# To Git Hub
+
+[https://github.com/BBudnicki/3_snow_functions_iteration](https://github.com/BBudnicki/3_snow_functions_iteration)
+
